@@ -1,3 +1,9 @@
+#include <dt-bindings/regulator/qcom,rpmh-regulator-levels.h>
+
+&audio_cma_mem {
+    size = <0x0 0x2800000>;
+};
+
 &lpass_cdc {
 	qcom,num-macros = <3>;
 };
@@ -67,31 +73,18 @@
 
 &fsa4480 {
 	status = "okay";
-};
-
-&pm8350b_haptics {
-	status = "ok";
-};
-
-&swr1 {
-	qcom,swr-num-dev = <3>;
-	swr_haptics: swr_haptics@f0170220 {
-		compatible = "qcom,pm8350b-swr-haptics";
-		reg = <0x01 0xf0170220>;
-		swr-slave-supply = <&hap_swr_slave_reg>;
-		qcom,rx_swr_ch_map = <0 0x01 0x01 0 PCM_OUT1>;
-	};
+	add-fsa4480-reset-probe = <1>;
 };
 
 &qupv3_se2_i2c {
 	#address-cells = <1>;
 	#size-cells = <0>;
 	status = "okay";
-	aw882xxacf_spk: aw882xx_smartpa@34 { /* SPKR */
+	aw882xxacf_rcv: aw882xx_smartpa@34 { /* SPKL */
 		compatible = "awinic,aw882xx_smartpa";
 		reg = <0x34>;
-		irq-gpio = <&tlmm 106 0x2008>;
-		sound-channel = <1>; /*0:pri_l 1:pri_r 2:sec_l 3:sec_r*/
+		irq-gpio = <&tlmm 52 0x2008>;
+		sound-channel = <0>; /*0:pri_l 1:pri_r 2:sec_l 3:sec_r*/
 		aw-re-min = <4000>;
 		aw-re-max= <30000>;
 		rename-flag = <1>;
@@ -99,11 +92,11 @@
 		monitor-mode = "hal_monitor";
 		status = "okay";
 	};
-	aw882xxacf_rcv: aw882xx_smartpa@35 { /* SPKL */
+	aw882xxacf_spk: aw882xx_smartpa@36 { /* SPKR */
 		compatible = "awinic,aw882xx_smartpa";
-		reg = <0x35>;
-		irq-gpio = <&tlmm 105 0x2008>;
-		sound-channel = <0>; /*0:pri_l 1:pri_r 2:sec_l 3:sec_r*/
+		reg = <0x36>;
+		irq-gpio = <&tlmm 53 0x2008>;
+		sound-channel = <1>; /*0:pri_l 1:pri_r 2:sec_l 3:sec_r*/
 		aw-re-min = <4000>;
 		aw-re-max= <30000>;
 		rename-flag = <1>;
@@ -126,9 +119,23 @@
 	};
 };
 
+&swr1 {
+	qcom,swr-num-dev = <3>;
+	swr_haptics: swr_haptics@f0170220 {
+		compatible = "qcom,pm8350b-swr-haptics";
+		reg = <0x01 0xf0170220>;
+		swr-slave-supply = <&hap_swr_slave_reg>;
+		qcom,rx_swr_ch_map = <0 0x01 0x01 0 PCM_OUT1>;
+	};
+};
+
+&pm8350b_haptics {
+	status = "ok";
+};
+
 &waipio_snd {
-	qcom,model = "parrot-qrd-snd-card";
-	qcom,sku-model = "parrot-qrd-sku1-snd-card";
+	qcom,model = "diwali-qrd-snd-card";
+	qcom,sku-model = "diwali-qrd-sku1-snd-card";
 	nvmem-cells = <&adsp_variant>;
 	nvmem-cell-names = "adsp_variant";
 	qcom,msm-mbhc-usbc-audio-supported = <1>;
@@ -144,14 +151,6 @@
 		"AMIC2", "MIC BIAS2",
 		"AMIC3", "Analog Mic3",
 		"AMIC3", "MIC BIAS3",
-		"TX DMIC0", "Digital Mic0",
-		"TX DMIC0", "MIC BIAS3",
-		"TX DMIC1", "Digital Mic1",
-		"TX DMIC1", "MIC BIAS3",
-		"TX DMIC2", "Digital Mic2",
-		"TX DMIC2", "MIC BIAS1",
-		"TX DMIC3", "Digital Mic3",
-		"TX DMIC3", "MIC BIAS1",
 		"IN1_HPHL", "HPHL_OUT",
 		"IN2_HPHR", "HPHR_OUT",
 		"IN3_AUX", "AUX_OUT",
@@ -180,10 +179,10 @@
 	/delete-property/ qcom,cdc-dmic45-gpios;
 	asoc-codec = <&stub_codec>, <&lpass_cdc>,
 		      <&wcd937x_codec>, <&swr_haptics>,
-		      <&aw882xxacf_spk>, <&aw882xxacf_rcv>;
+		      <&aw882xxacf_rcv>, <&aw882xxacf_spk>;
 	asoc-codec-names = "msm-stub-codec.1", "lpass-cdc",
 			   "wcd937x_codec", "swr-haptics",
-			   "aw882xx_smartpa.0-0034", "aw882xx_smartpa.0-0035";
+			   "aw882xx_smartpa.0-0034", "aw882xx_smartpa.0-0036";
 	qcom,wsa-max-devs = <0>;
 	fsa4480-i2c-handle = <&fsa4480>;
 };
