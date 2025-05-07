@@ -26,7 +26,7 @@
 		compatible = "goodix,gt9916S";
 		reg = <0>;
 
-		mmi,status = "/chosen","mmi,panel_name","contains","tm_vtdr6115";
+		mmi,status = "/chosen","mmi,panel_name","contains","tm_vtdr6115","boe_nt37701a";
 		spi-max-frequency = <9600000>;  /* 4800000,9600000,15000000,19200000 */
 		goodix,reset-gpio = <&tlmm 64 0x0>;
 		goodix,irq-gpio = <&tlmm 65 0x2002>;
@@ -46,6 +46,7 @@
 		goodix,firmware-name = "goodix_firmware.bin";
 		goodix,config-name = "goodix_cfg_group.bin";
 		goodix,edge-ctrl;
+		goodix,pitch-ctrl;
 		goodix,interpolation-ctrl;
 		goodix,gesture-wait-pm;
 		goodix,sample-ctrl;
@@ -74,6 +75,7 @@
 		pinctrl-1 = <&ts_spi_int_suspend &ts_spi_reset_suspend>;
 		pinctrl-2 = <&ts_spi_release>;
 		focaltech,edge-ctrl;
+		focaltech,pitch-ctrl;
 		focaltech,sample-ctrl;
 		focaltech,interpolation-ctrl;
 		focaltech,stowed-mode-ctrl;

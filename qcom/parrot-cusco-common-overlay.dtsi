@@ -19,6 +19,7 @@
 #include "parrot-cusco-fps-overlay.dtsi"
 #include "moto-cusco-wl2866d.dtsi"
 #include "parrot-cusco-nfc-overlay.dtsi"
+#include "parrot-cusco-wlan-antenna-control.dtsi"
 
 &tlmm {
 	qcom,gpios-reserved = <0 1 2 3 38 18 19 20 21>;
@@ -31,8 +32,8 @@
 &usb2_phy0 {
 	qcom,param-override-seq = <
 			0x83 0x6c
-			0xc3 0x70
-			0xc7 0x74
+			0x08 0x70
+			0x14 0x74
 			0x03 0x78>;
 };
 
@@ -41,6 +42,10 @@
 	qcom,vib-dis-short-long;
 	qcom,vib-dis-short-long-val = <80>;
 	qcom,vib-ldo-volt-uv-long = <2900000>;
+};
+
+&qseecom_ta_mem {
+	size = <0x0 0x3000000>;
 };
 
 &mpss_mem {
@@ -59,4 +64,21 @@
 
 &pmr735a_temp_alarm {
 	status = "disabled";
+};
+&qupv3_se2_i2c {
+	pm8010i@8 {
+		status = "disabled";
+	};
+	pm8010j@c {
+		status = "disabled";
+	};
+};
+&L21B{
+	regulator-always-on;
+	status = "okay";
+};
+&usb3phy_portselect_default {
+        config {
+                bias-pull-down;
+	};
 };

@@ -306,6 +306,16 @@ diwali-lynkco-row-dvt2c-overlay.dtbo-base := diwali-moto-lynkco-base.dtb
 diwali-lynkco-pvt-overlay.dtbo-base := diwali-moto-lynkco-base.dtb
 diwali-lynkco-row-pvt-overlay.dtbo-base := diwali-moto-lynkco-base.dtb
 endif
+
+ifeq ($(CONFIG_TANK_DTB),y)
+dtbo-$(CONFIG_ARCH_DIWALI) += \
+	diwali-tank-evb1-overlay.dtbo \
+	diwali-tank-evt1-overlay.dtbo
+
+diwali-tank-evb1-overlay.dtbo-base := diwali-moto-tank-base.dtb
+diwali-tank-evt1-overlay.dtbo-base := diwali-moto-tank-base.dtb
+endif
+
 #remove useless diwali device tree in moto build
 ifneq ($(CONFIG_MMI_DEVICE_DTBS),y)
 dtbo-$(CONFIG_ARCH_DIWALI) += diwali-rumi-overlay.dtbo \
@@ -624,6 +634,13 @@ dtbo-$(CONFIG_ARCH_PARROT) += \
         parrot-cusco-evb-overlay.dtbo
 
 parrot-cusco-evb-overlay.dtbo-base := parrot-moto-base.dtb
+endif
+
+ifeq ($(CONFIG_CUSCO_DTB),y)
+dtbo-$(CONFIG_ARCH_PARROT) += \
+        parrot-cuscoi-evb-overlay.dtbo
+
+parrot-cuscoi-evb-overlay.dtbo-base := parrot-moto-base.dtb
 endif
 
 ifeq ($(CONFIG_AVATRN_DTB),y)

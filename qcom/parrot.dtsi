@@ -461,7 +461,7 @@
 		alloc-ranges = <0x0 0x00000000 0x0 0xffffffff>;
 		reusable;
 		alignment = <0x0 0x400000>;
-		size = <0x0 0x1000000>;
+		size = <0x0 0x2000000>;
 	};
 
 };
@@ -2952,7 +2952,7 @@
 				<0x146A8000 0x146A8000 0x2000>;
 			qcom,iommu-dma = "atomic";
 			dma-coherent;
-			qcom,ipa-q6-smem-size = <36864>;
+			qcom,ipa-q6-smem-size = <45056>;
 		};
 
 		ipa_smmu_wlan: ipa_smmu_wlan {
